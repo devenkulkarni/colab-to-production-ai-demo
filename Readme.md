@@ -66,7 +66,7 @@ ollama --version
 ## 📥 Pull model
 
 ```bash
-ollama pull llama3
+ollama pull llama3.1
 ```
 
 ---
