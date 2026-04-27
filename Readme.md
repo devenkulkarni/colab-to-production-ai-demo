@@ -8,10 +8,10 @@
 
 ---
 
-## 🧠 What this repo shows
+## 🧠 What this repo shows:
 
 A hands-on journey from:
-- Notebook-style AI (like Colab)
+- Notebook-style AI (like Colab or Jupyter)
 ➡️ to
 - Real-world deployment using Docker & Kubernetes
 
@@ -39,7 +39,8 @@ flowchart LR
 
 ## 📦 Prerequisites
 
-- Docker
+- Linux Or Mac host
+- Docker installed
 - Python 3.10+
 - curl
 
@@ -71,101 +72,6 @@ ollama pull llama3.1
 
 ---
 
-## ▶️ Start Ollama
-
-```bash
-ollama serve
-```
-
-Runs at:
-
-```
-http://localhost:11434
-```
-
----
-
-## 🧪 Demo 1 — ❌ Broken (Colab mindset)
-
-### Problem
-
-Hardcoded:
-
-```python
-"http://localhost:11434"
-```
-
----
-
-### Run locally (works)
-
-```bash
-cd demo-1-broken
-pip install -r requirements.txt
-uvicorn app:app --reload
-```
-
-Test:
-
-```
-http://localhost:8000/ask?prompt=hello
-```
-
----
-
-### Run with Docker (fails)
-
-```bash
-docker build -t ai-app .
-docker run -p 8000:8000 ai-app
-```
-
-❌ Why it fails:
-- `localhost` inside container ≠ your machine
-
----
-
-## 🧪 Demo 2 — ✅ Fixed (Production mindset)
-
-### Fix
-
-Use env variables:
-
-```python
-OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
-```
-
----
-
-### Run with Docker (works)
-
-```bash
-docker build -t ai-app .
-docker run -p 8000:8000 \
-  -e OLLAMA_URL=http://host.docker.internal:11434 \
-  ai-app
-```
-
----
-
-## 🧪 Test API
-
-```bash
-curl "http://localhost:8000/ask?prompt=Explain Kubernetes simply"
-```
-
----
-
-## ☸️ Kubernetes View
-
-Instead of `localhost`, use:
-
-```
-http://ollama-service:11434
-```
-
----
-
 ## 🧠 Key Learning
 
 | Stage | Result | Reason |
@@ -189,7 +95,7 @@ http://ollama-service:11434
 
 1. Run Demo 1 → observe failure  
 2. Run Demo 2 → fix it  
-3. Modify env vars → experiment  
+3. Run Demo 3 → experience reliability, scalability, self-healing  
 
 ---
 
